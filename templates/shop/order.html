@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main role="main">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-4">Заказ оформлен</h1>
+            </div>
+        </div>
+
+        <div class="container">
+            <a href="{% url 'home_page' %}" class="btn btn-success">Вернуться на главную</a>
+        </div>
+    </main>
+{% endblock %}

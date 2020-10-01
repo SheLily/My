@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main role="main">
+        <!-- <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-4">Заказ оформлен</h1>
+            </div>
+        </div> -->
+
+        <div class="container mb-5">
+        <!-- Example row of columns -->
+            {% for product in cart.products.all %}
+                <div class="col-md-4">
+                    <h2>{{ product.name }}</h2>
+                    <a href="{% url 'product' product.id %}">
+                        <img src="{{ product.image.url }}" width="180">
+                    </a>
+                    <form method="POST" action="{% url 'cart' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                        <input type="hidden" name="action" value="remove">
+                        <input type="submit" class="btn btn-secondary" value="Убрать из корзины »">
+                    </form>
+                </div>
+            {% endfor %}
+        </div> 
+
+        <form method="POST" action="{% url 'order' %}">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-success" value="Оформить заказ">
+        </form>
+
+    </main>
+{% endblock %}

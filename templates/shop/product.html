@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main role="main">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-4">Добро пожаловать на сайт просто магазина</h1>
+            </div>
+        </div>
+
+        <div class="container mb-5">    
+            <div class="col-md-4">
+                <h2>{{ product.name }}</h2>
+                <img src="{{ product.image.url }}" width="180">
+                <p>Цена: <strong>{{ product.price }}</strong></p> 
+                <p>Описание: {{ product.description }}</p> 
+                <p>
+                    Тег: {{ product.tag.name }}
+                </p> 
+                <form method="POST" action="{% url 'cart' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <input type="hidden" name="action" value="add">
+                    <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
+                </form>
+            </div>
+        </div> <!-- /container -->
+
+        <h3>Отзывы</h3>
+        {% for review in reviews %}
+            <div>
+                <p>Автор:   {{ review.author }}</p>
+                <p>Отзыв:   {{ review.body }}</p>
+                <p>Рейтинг: {{ review.rating }}</p>
+            </div>
+        {% endfor %}
+
+        <h3>Оставить отзыв</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ review_form.as_p }}
+            <button type="submit">Сохранить</button>
+        </form>
+    </main>
+{% endblock %}
