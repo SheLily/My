@@ -4,3 +4,4 @@
     3) python manage.py loaddata data.json
 Запуск:
     pytohon manage.py runserver
+"# My" 
